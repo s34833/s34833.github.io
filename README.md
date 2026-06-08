@@ -1,12 +1,12 @@
 # s34833.github.io
 ยินดีต้อนรับเข้าสู่เว็บไซต์เเฟ้มสะสมผลงานของนายพีระพัฒน์ มะใบ
 
-<!DOCTYPE html>
+
 <html lang="th">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>แฟ้มสะสมผลงาน67</title>
+    <title>แฟ้มสะสมผลงาน</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
