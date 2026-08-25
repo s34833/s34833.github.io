@@ -1,237 +1,445 @@
-# s34833.github.io
-ยินดีต้อนรับเข้าสู่เว็บไซต์เเฟ้มสะสมผลงานของนายพีระพัฒน์ มะใบ
-
 <!DOCTYPE html>
 <html lang="th">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>แฟ้มสะสมผลงาน - พีระพัฒน์ มะใบ</title>
-
+<title>แฟ้มสะสมผลงาน — พีระพัฒน์ มะใบ</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Thai:wght@500;600;700&family=Noto+Sans+Thai:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
-*{
+  :root{
+    --paper:#FAF7EE;
+    --ink:#1C2A38;
+    --ink-soft:#5C6773;
+    --gold:#A67C2E;
+    --teal:#1E5B58;
+    --teal-pale:#E7EFEC;
+    --card:#FFFFFF;
+    --line:#DDD6C4;
+  }
+
+  *{ box-sizing:border-box; }
+
+  body{
     margin:0;
-    padding:0;
-    box-sizing:border-box;
-}
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'Noto Sans Thai', sans-serif;
+    line-height:1.85;
+  }
 
-body{
-    font-family: 'Segoe UI', sans-serif;
-    background: linear-gradient(135deg,#0f172a,#1e293b);
-    color:white;
-    line-height:1.8;
-}
-
-header{
+  header{
     text-align:center;
-    padding:60px 20px;
-}
+    padding:56px 20px 28px;
+    background:var(--card);
+    border-bottom:1px solid var(--line);
+  }
 
-header img{
-    width:220px;
-    height:220px;
+  header img{
+    width:200px;
+    height:200px;
     border-radius:50%;
     object-fit:cover;
-    border:5px solid #38bdf8;
-    box-shadow:0 0 30px rgba(56,189,248,0.6);
-}
+    border:8px solid var(--gold);
+    padding:6px;
+  }
 
-header h1{
-    margin-top:20px;
-    color:#38bdf8;
-    font-size:3rem;
-}
+  .eyebrow{
+    font-size:11.5px;
+    font-weight:500;
+    letter-spacing:0.2em;
+    color:var(--ink-soft);
+    text-transform:uppercase;
+    margin:22px 0 10px;
+  }
 
-header p{
-    color:#cbd5e1;
-}
+  header h1{
+    font-family:'Noto Serif Thai', serif;
+    font-weight:700;
+    font-size:30px;
+    margin:0 0 8px;
+    color:var(--ink);
+  }
 
-.container{
-    max-width:1000px;
-    margin:auto;
-    padding:20px;
-}
+  header p{
+    font-size:14px;
+    color:var(--ink-soft);
+    margin:0;
+  }
 
-.card{
-    background:rgba(255,255,255,0.08);
-    backdrop-filter:blur(10px);
-    padding:25px;
-    margin-bottom:25px;
-    border-radius:20px;
-    box-shadow:0 8px 20px rgba(0,0,0,0.3);
-    transition:0.3s;
-}
+  nav.tabs{
+    position:sticky;
+    top:0;
+    z-index:10;
+    background:var(--card);
+    border-bottom:1px solid var(--line);
+    display:flex;
+    justify-content:center;
+    flex-wrap:wrap;
+    gap:2px;
+    padding:0 12px;
+  }
 
-.card:hover{
-    transform:translateY(-5px);
-}
+  nav.tabs button{
+    appearance:none;
+    background:none;
+    border:none;
+    border-bottom:2.5px solid transparent;
+    font-family:'Noto Sans Thai', sans-serif;
+    font-size:14.5px;
+    font-weight:500;
+    color:var(--ink-soft);
+    padding:16px 18px;
+    cursor:pointer;
+    transition: color 0.15s ease, border-color 0.15s ease;
+  }
 
-h2{
-    color:#60a5fa;
-    margin-bottom:15px;
-    border-left:5px solid #38bdf8;
-    padding-left:10px;
-}
+  nav.tabs button:hover{ color:var(--ink); }
 
-ul{
-    padding-left:20px;
-}
+  nav.tabs button.active{
+    color:var(--teal);
+    border-bottom-color:var(--teal);
+  }
 
-li{
-    margin-bottom:10px;
-}
+  main{
+    max-width:760px;
+    margin:0 auto;
+    padding:44px 24px 64px;
+  }
 
-footer{
-    text-align:center;
-    padding:20px;
-    background:rgba(255,255,255,0.08);
-    margin-top:30px;
-}
+  .panel{
+    display:none;
+    animation: fade 0.25s ease;
+  }
 
-.info p{
-    margin-bottom:8px;
-}
+  .panel.active{ display:block; }
 
-.contact a{
-    color:#38bdf8;
+  @keyframes fade{
+    from{ opacity:0; transform:translateY(6px); }
+    to{ opacity:1; transform:translateY(0); }
+  }
+
+  .panel h2{
+    font-family:'Noto Serif Thai', serif;
+    font-weight:600;
+    font-size:21px;
+    color:var(--ink);
+    margin:0 0 6px;
+  }
+
+  .rule{
+    width:40px;
+    height:2px;
+    background:var(--gold);
+    margin:0 0 24px;
+    border:none;
+  }
+
+  .panel p{
+    font-size:15px;
+    color:var(--ink);
+    margin:0 0 12px;
+  }
+
+  .panel p strong{
+    color:var(--ink-soft);
+    font-weight:500;
+    display:inline-block;
+    min-width:96px;
+  }
+
+  .edu-block{
+    padding:16px 20px;
+    background:var(--teal-pale);
+    margin-bottom:14px;
+  }
+
+  .edu-block h3{
+    font-family:'Noto Serif Thai', serif;
+    font-size:15.5px;
+    font-weight:600;
+    color:var(--teal);
+    margin:0 0 4px;
+  }
+
+  .edu-block p{ margin:0; font-size:14.5px; color:var(--ink); }
+
+  ul.list{
+    list-style:none;
+    padding:0;
+    margin:0;
+  }
+
+  ul.list li{
+    position:relative;
+    padding-left:22px;
+    margin-bottom:12px;
+    font-size:15px;
+  }
+
+  ul.list li::before{
+    content:"";
+    position:absolute;
+    left:0;
+    top:9px;
+    width:6px;
+    height:6px;
+    background:var(--gold);
+    transform:rotate(45deg);
+  }
+
+  .honor-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fill, minmax(190px, 1fr));
+    gap:18px;
+  }
+
+  .honor-card{
+    display:block;
     text-decoration:none;
-}
+    color:var(--ink);
+    border:1px solid var(--line);
+    background:var(--card);
+    overflow:hidden;
+    transition: box-shadow 0.15s ease, transform 0.15s ease;
+  }
 
-.contact a:hover{
-    color:#7dd3fc;
-}
+  .honor-card:hover{
+    box-shadow:0 8px 20px rgba(28,42,56,0.1);
+    transform:translateY(-3px);
+  }
 
-/* ======================================= */
-/* 🌟 โค้ดกล่องและปุ่มกลับหน้าแรกที่เพิ่มเข้าไปใหม่ 🌟 */
-/* ======================================= */
-.back-container {
-  background: rgba(255, 255, 255, 0.03); /* กล่องกระจกฝ้าบางๆ */
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 15px;
-  padding: 20px;
-  max-width: 400px;
-  margin: 30px auto;
-  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
-  text-align: center;
-}
+  .honor-card .thumb{
+    width:100%;
+    aspect-ratio:4/3;
+    object-fit:cover;
+    display:block;
+    border-bottom:2px solid var(--gold);
+  }
 
-.btn-back {
-  display: inline-block;
-  padding: 12px 28px;
-  background-color: #eab308; /* สีปุ่มสีเหลืองทอง */
-  color: #ffffff;            /* 🎨 เปลี่ยนสีคำเป็นสีขาวสว่างตามที่ขอแล้วครับ! */
-  text-decoration: none;
-  border-radius: 50px;
-  font-weight: bold;
-  font-size: 16px;
-  transition: all 0.3s ease;
-  box-shadow: 0 4px 15px rgba(234, 179, 8, 0.4);
-}
+  .honor-card .caption{
+    padding:12px 14px;
+  }
 
-.btn-back:hover {
-  background-color: #fef08a; /* ตอนเมาส์ชี้ปุ่มจะสว่างขึ้น */
-  color: #1e293b;            /* ตอนเมาส์ชี้ข้อความจะเปลี่ยนเป็นสีมืดเพื่อให้อ่านง่าย */
-  box-shadow: 0 0 25px rgba(234, 179, 8, 0.8);
-  transform: translateY(-2px);
-}
-/* ======================================= */
+  .honor-card .caption .title{
+    font-family:'Noto Serif Thai', serif;
+    font-weight:600;
+    font-size:14.5px;
+    margin:0 0 3px;
+  }
 
-@media(max-width:768px){
-    header h1{
-        font-size:2rem;
-    }
+  .honor-card .caption .year{
+    font-size:12px;
+    color:var(--ink-soft);
+    margin:0;
+  }
 
-    header img{
-        width:180px;
-        height:180px;
-    }
-}
+  .honor-empty{
+    grid-column:1 / -1;
+    text-align:center;
+    padding:44px 20px;
+    border:1px dashed var(--line);
+    color:var(--ink-soft);
+    font-size:14.5px;
+  }
+
+  .contact-item{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    padding:14px 18px;
+    border:1px solid var(--line);
+    margin-bottom:10px;
+    font-size:14.5px;
+  }
+
+  .contact-item .label{
+    font-size:11.5px;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    color:var(--ink-soft);
+    min-width:64px;
+  }
+
+  .contact-item a{ color:var(--teal); text-decoration:none; }
+  .contact-item a:hover{ text-decoration:underline; }
+
+  .back-wrap{
+    text-align:center;
+    padding:0 24px 56px;
+  }
+
+  .cta{
+    display:inline-block;
+    background:var(--ink);
+    color:#fff;
+    text-decoration:none;
+    font-weight:500;
+    font-size:14px;
+    letter-spacing:0.05em;
+    padding:14px 34px;
+    transition: background 0.15s ease;
+  }
+  .cta:hover{ background:var(--teal); }
+
+  footer{
+    text-align:center;
+    padding:22px;
+    background:var(--card);
+    border-top:1px solid var(--line);
+    font-size:11.5px;
+    color:var(--ink-soft);
+  }
+
+  @media (max-width:600px){
+    header img{ width:150px; height:150px; }
+    header h1{ font-size:24px; }
+    nav.tabs button{ font-size:13px; padding:13px 12px; }
+  }
 </style>
-
 </head>
 
 <body>
 
 <header>
-    <img src="Frank.jpg" alt="รูปเจ้าของผลงาน">
-    <h1>แฟ้มสะสมผลงาน</h1>
-    <h2>นายพีระพัฒน์ มะใบ</h2>
-    <p>โรงเรียนบ้านบึง "อุตสาหกรรมนุเคราะห์"</p>
+  <img src="Frank.jpg" alt="รูปเจ้าของผลงาน">
+  <p class="eyebrow">แฟ้มสะสมผลงาน</p>
+  <h1>พีระพัฒน์ มะใบ</h1>
+  <p>โรงเรียนบ้านบึง "อุตสาหกรรมนุเคราะห์"</p>
 </header>
 
-<div class="container">
+<nav class="tabs">
+  <button class="active" data-tab="intro">คำนำ</button>
+  <button data-tab="profile">ประวัติส่วนตัว</button>
+  <button data-tab="education">ประวัติการศึกษา</button>
+  <button data-tab="activities">กิจกรรม</button>
+  <button data-tab="skills">ความสามารถพิเศษ</button>
+  <button data-tab="honors">เกียรติบัตร</button>
+  <button data-tab="contact">ติดต่อ</button>
+</nav>
 
-<section class="card">
+<main>
+
+  <section class="panel active" id="intro">
     <h2>คำนำ</h2>
+    <hr class="rule">
     <p>
-        แฟ้มสะสมผลงานฉบับนี้จัดทำขึ้นเพื่อรวบรวมข้อมูลเกี่ยวกับ
-        ประวัติส่วนตัว ประวัติการศึกษา กิจกรรม และความสามารถพิเศษ
-        เพื่อใช้ประกอบการพิจารณาศึกษาต่อและแสดงศักยภาพของผู้จัดทำ
+      แฟ้มสะสมผลงานฉบับนี้จัดทำขึ้นเพื่อรวบรวมข้อมูลเกี่ยวกับประวัติส่วนตัว
+      ประวัติการศึกษา กิจกรรม และความสามารถพิเศษ เพื่อใช้ประกอบการพิจารณา
+      ศึกษาต่อและแสดงศักยภาพของผู้จัดทำ
     </p>
-</section>
+  </section>
 
-<section class="card info">
+  <section class="panel" id="profile">
     <h2>ประวัติส่วนตัว</h2>
-    <p><strong>ชื่อ :</strong> นายพีระพัฒน์ มะใบ</p>
-    <p><strong>วันเกิด :</strong> วันพุธ 21 มกราคม</p>
-    <p><strong>อายุ :</strong> 17 ปี</p>
-    <p><strong>งานอดิเรก :</strong> เล่นกีฬา ฟังเพลง เล่นเกม</p>
-</section>
+    <hr class="rule">
+    <p><strong>ชื่อ</strong>นายพีระพัฒน์ มะใบ</p>
+    <p><strong>วันเกิด</strong>วันพุธ 21 มกราคม</p>
+    <p><strong>อายุ</strong>17 ปี</p>
+    <p><strong>งานอดิเรก</strong>เล่นกีฬา ฟังเพลง เล่นเกม</p>
+  </section>
 
-<section class="card">
+  <section class="panel" id="education">
     <h2>ประวัติการศึกษา</h2>
+    <hr class="rule">
+    <div class="edu-block">
+      <h3>ระดับประถมศึกษา</h3>
+      <p>โรงเรียนอนุบาลบ้านบึง</p>
+    </div>
+    <div class="edu-block">
+      <h3>ระดับมัธยมศึกษาตอนต้น</h3>
+      <p>โรงเรียนบ้านบึง "อุตสาหกรรมนุเคราะห์"</p>
+    </div>
+    <div class="edu-block">
+      <h3>ระดับมัธยมศึกษาตอนปลาย</h3>
+      <p>โรงเรียนบ้านบึง "อุตสาหกรรมนุเคราะห์"</p>
+    </div>
+  </section>
 
-    <h3>ระดับประถมศึกษา</h3>
-    <p>โรงเรียนอนุบาลบ้านบึง</p>
-
-    <br>
-
-    <h3>ระดับมัธยมศึกษาตอนต้น</h3>
-    <p>โรงเรียนบ้านบึง "อุตสาหกรรมนุเคราะห์"</p>
-
-    <br>
-
-    <h3>ระดับมัธยมศึกษาตอนปลาย</h3>
-    <p>โรงเรียนบ้านบึง "อุตสาหกรรมนุเคราะห์"</p>
-</section>
-
-<section class="card">
+  <section class="panel" id="activities">
     <h2>กิจกรรม</h2>
-    <ul>
-        <li>เข้าร่วมการแข่งขันคณิตศาสตร์ภายในโรงเรียน</li>
-        <li>กิจกรรมจิตอาสาพัฒนาชุมชน</li>
-        <li>กิจกรรมกีฬาสีของโรงเรียน</li>
-        <li>ค่ายวิชาการและค่ายอาชีพ</li>
+    <hr class="rule">
+    <ul class="list">
+      <li>เข้าร่วมการแข่งขันคณิตศาสตร์ภายในโรงเรียน</li>
+      <li>กิจกรรมจิตอาสาพัฒนาชุมชน</li>
+      <li>กิจกรรมกีฬาสีของโรงเรียน</li>
+      <li>ค่ายวิชาการและค่ายอาชีพ</li>
     </ul>
-</section>
+  </section>
 
-<section class="card">
+  <section class="panel" id="skills">
     <h2>ความสามารถพิเศษ</h2>
-    <ul>
-        <li>เขียนโปรแกรม JavaScript เบื้องต้น</li>
-        <li>สื่อสารภาษาอังกฤษได้</li>
-        <li>ใช้โปรแกรม Microsoft Office</li>
+    <hr class="rule">
+    <ul class="list">
+      <li>เขียนโปรแกรม JavaScript เบื้องต้น</li>
+      <li>สื่อสารภาษาอังกฤษได้</li>
+      <li>ใช้โปรแกรม Microsoft Office</li>
     </ul>
-</section>
+  </section>
 
-<section class="card contact">
+  <section class="panel" id="honors">
+    <h2>เกียรติบัตร</h2>
+    <hr class="rule">
+    <div class="honor-grid" id="honor-grid"></div>
+  </section>
+
+  <section class="panel" id="contact">
     <h2>ช่องทางการติดต่อ</h2>
-    <p>📞 081-547-8230</p>
-    <p>📧 s34833@banbung.ac.th</p>
-    <p>📘 Facebook : Peerapat Mabai</p>
-</section>
+    <hr class="rule">
+    <div class="contact-item"><span class="label">โทรศัพท์</span><span>081-547-8230</span></div>
+    <div class="contact-item"><span class="label">อีเมล</span><a href="mailto:s34833@banbung.ac.th">s34833@banbung.ac.th</a></div>
+    <div class="contact-item"><span class="label">Facebook</span><span>Peerapat Mabai</span></div>
+  </section>
 
-</div>
+</main>
 
-<div class="back-container">
-  <a href="index.html" class="btn-back">🏠 กลับหน้าแรก 😎 ❤️ 👌</a>
+<div class="back-wrap">
+  <a href="index.html" class="cta">กลับหน้าแรก</a>
 </div>
 
 <footer>
-    <p>© 2026 Portfolio | Peerapat Mabai</p>
+  © 2026 Portfolio — Peerapat Mabai
 </footer>
+
+<script>
+  // เพิ่มเกียรติบัตรใหม่ได้โดยเพิ่มบรรทัดในลิสต์ด้านล่างนี้
+  // img   = ชื่อไฟล์รูปเกียรติบัตร (วางไฟล์รูปไว้โฟลเดอร์เดียวกับหน้านี้ เช่น honors/cert1.jpg)
+  // title = ชื่อรางวัล/เกียรติบัตร
+  // year  = ปีที่ได้รับ (ไม่ใส่ก็ได้)
+  const honors = [
+    // { img: 'honors/cert1.jpg', title: 'ชื่อเกียรติบัตร', year: '2568' },
+  ];
+
+  const honorGrid = document.getElementById('honor-grid');
+
+  if (honors.length === 0) {
+    honorGrid.innerHTML = '<div class="honor-empty">ยังไม่มีเกียรติบัตร — เพิ่มได้โดยแก้ไขรายการ honors ในโค้ด</div>';
+  } else {
+    honorGrid.innerHTML = honors.map(h => `
+      <a class="honor-card" href="${h.img}" target="_blank" rel="noopener">
+        <img class="thumb" src="${h.img}" alt="${h.title}">
+        <div class="caption">
+          <p class="title">${h.title}</p>
+          ${h.year ? `<p class="year">${h.year}</p>` : ''}
+        </div>
+      </a>
+    `).join('');
+  }
+
+  const buttons = document.querySelectorAll('nav.tabs button');
+  const panels = document.querySelectorAll('.panel');
+
+  buttons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      buttons.forEach(b => b.classList.remove('active'));
+      panels.forEach(p => p.classList.remove('active'));
+      btn.classList.add('active');
+      document.getElementById(btn.dataset.tab).classList.add('active');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  });
+</script>
 
 </body>
 </html>
