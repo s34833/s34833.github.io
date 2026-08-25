@@ -1,36 +1,211 @@
-<!-- นี่คือโครงสร้างหน้าเว็บทังหมด ้ -->
 <!DOCTYPE html>
 <html lang="th">
 <head>
 <meta charset="UTF-8">
-<title>หน้าแนะนำตัวของฉัน</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>หน้าแนะนำตัวของฉัน — พีระพัฒน์</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Thai:wght@500;600;700&family=Noto+Sans+Thai:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
-body {
-background-color: #90EE90; color: #333;
-text-align: center; padding: 50px;
+  :root{
+    --paper:#FAF7EE;
+    --ink:#1C2A38;
+    --ink-soft:#5C6773;
+    --gold:#A67C2E;
+    --teal:#1E5B58;
+    --teal-pale:#E7EFEC;
+    --card:#FFFFFF;
+  }
 
-}
-.card {
-background: white; border-radius: 10px;
-box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-max-width: 500px; margin: 0 auto; padding: 30px;
+  *{ box-sizing:border-box; }
 
-}
-h1 { color: #2c3e50; }
-p { font-size: 18px; line-height: 1.6; }
+  body{
+    margin:0;
+    min-height:100vh;
+    background:
+      radial-gradient(circle, rgba(28,42,56,0.05) 1px, transparent 1px) 0 0/22px 22px,
+      var(--paper);
+    color:var(--ink);
+    font-family:'Noto Sans Thai', sans-serif;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:56px 18px;
+  }
+
+  .frame{
+    position:relative;
+    max-width:500px;
+    width:100%;
+    padding:10px;
+    border:1px solid rgba(28,42,56,0.18);
+  }
+
+  .frame::before,
+  .frame::after,
+  .corner-tl,
+  .corner-br{
+    content:"";
+    position:absolute;
+    width:22px;
+    height:22px;
+  }
+  .frame::before{ top:-1px; left:-1px; border-top:2px solid var(--gold); border-left:2px solid var(--gold); }
+  .frame::after{ bottom:-1px; right:-1px; border-bottom:2px solid var(--gold); border-right:2px solid var(--gold); }
+  .corner-tl{ top:-1px; right:-1px; border-top:2px solid var(--gold); border-right:2px solid var(--gold); }
+  .corner-br{ bottom:-1px; left:-1px; border-bottom:2px solid var(--gold); border-left:2px solid var(--gold); }
+
+  .card{
+    background:var(--card);
+    padding:52px 44px 40px;
+    text-align:center;
+    border:1px solid rgba(28,42,56,0.1);
+  }
+
+  .icon{
+    width:46px;
+    height:46px;
+    margin:0 auto 20px;
+    color:var(--teal);
+  }
+
+  .eyebrow{
+    font-size:11.5px;
+    font-weight:500;
+    letter-spacing:0.2em;
+    color:var(--ink-soft);
+    text-transform:uppercase;
+    margin:0 0 16px;
+  }
+
+  h1{
+    font-family:'Noto Serif Thai', serif;
+    font-weight:700;
+    font-size:29px;
+    line-height:1.4;
+    margin:0 0 6px;
+    color:var(--ink);
+  }
+
+  .name-en{
+    font-size:12.5px;
+    font-weight:400;
+    color:var(--ink-soft);
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    margin:0 0 22px;
+  }
+
+  .rule{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:10px;
+    margin:0 0 26px;
+  }
+  .rule span{ width:5px; height:5px; background:var(--gold); transform:rotate(45deg); }
+  .rule::before, .rule::after{
+    content:"";
+    height:1px;
+    width:56px;
+    background:var(--gold);
+    opacity:0.55;
+  }
+
+  .field-label{
+    font-size:11.5px;
+    font-weight:500;
+    letter-spacing:0.12em;
+    color:var(--ink-soft);
+    text-transform:uppercase;
+    margin:0 0 10px;
+  }
+
+  .field-value{
+    display:inline-block;
+    font-family:'Noto Serif Thai', serif;
+    font-weight:600;
+    font-size:19px;
+    color:var(--teal);
+    background:var(--teal-pale);
+    padding:9px 24px;
+    margin-bottom:28px;
+    letter-spacing:0.01em;
+  }
+
+  p.bio{
+    font-size:15px;
+    font-weight:400;
+    line-height:1.9;
+    color:var(--ink);
+    margin:0 0 32px;
+    text-align:left;
+  }
+
+  .cta{
+    display:inline-block;
+    background:var(--ink);
+    color:#fff;
+    text-decoration:none;
+    font-weight:500;
+    font-size:14px;
+    letter-spacing:0.05em;
+    padding:14px 34px;
+    transition: background 0.15s ease;
+  }
+  .cta:hover{ background:var(--teal); }
+
+  .footnote{
+    font-size:10.5px;
+    font-weight:400;
+    color:var(--ink-soft);
+    letter-spacing:0.06em;
+    margin-top:30px;
+  }
+
+  @media (max-width:480px){
+    .card{ padding:42px 24px 32px; }
+    h1{ font-size:24px; }
+    p.bio{ font-size:14.5px; }
+    .frame::before, .frame::after, .corner-tl, .corner-br{ width:16px; height:16px; }
+  }
 </style>
 </head>
 <body>
-<div class="card">
-    <h1>ยินดีต้อนรับสู่โปรไฟล์ของฉัน </h1>
-    <p>สวัสดีครับ! ผมชื่อ <strong>พีระพัฒน์ (Peerapat)</strong></p>
-    <p>ขณะนี้กำลังศึกษา/สนใจด้าน Gifted</p>
-    <p>นี่คือเว็บไซต์แรกของผมที่โฮสต์บน GitHub Pages!</p>
-    
-    <p><a href="portfolio.html" style="display: inline-block; margin-top: 15px; padding: 10px 20px; background-color: #2c3e50; color: white; text-decoration: none; border-radius: 5px; font-weight: bold;">คลิกชมพอร์ตโฟลิโอของผม😎👌</a></p>
+  <div class="frame">
+    <div class="corner-tl"></div>
+    <div class="corner-br"></div>
+    <div class="card">
+      <svg class="icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M20 6h8"/>
+        <path d="M24 6v14"/>
+        <path d="M17 20h14l3 10a4 4 0 0 1-4 5H18a4 4 0 0 1-4-5z"/>
+        <path d="M16.5 30h15"/>
+        <circle cx="24" cy="38" r="4"/>
+        <path d="M11 42h26"/>
+      </svg>
+
+      <p class="eyebrow">เอกสารแนะนำตัว</p>
+
+      <h1>พีระพัฒน์</h1>
+      <p class="name-en">Peerapat</p>
+
+      <div class="rule"><span></span></div>
+
+      <p class="field-label">สาขาที่สนใจศึกษาต่อ</p>
+      <span class="field-value">เทคนิคการแพทย์</span>
+
+      <p class="bio">
+        สวัสดีครับ ผมชื่อพีระพัฒน์ ขณะนี้กำลังเตรียมความพร้อมเพื่อศึกษาต่อในสาขาเทคนิคการแพทย์
+        เว็บไซต์นี้จัดทำขึ้นเพื่อรวบรวมประวัติและผลงานของผมไว้ในที่เดียว
+        โฮสต์อยู่บน GitHub Pages
+      </p>
+
+      <a class="cta" href="portfolio.html">ดูพอร์ตโฟลิโอ</a>
+
+      <p class="footnote">GitHub Pages Portfolio</p>
+    </div>
   </div>
-</body>
-</html>
-</div>
 </body>
 </html>
