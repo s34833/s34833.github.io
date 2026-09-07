@@ -13,12 +13,15 @@
     --ink:#1C2A38;
     --ink-soft:#5C6773;
     --gold:#A67C2E;
+    --gold-bright:#D4AF57;
     --teal:#1E5B58;
     --teal-pale:#E7EFEC;
     --card:#FFFFFF;
   }
 
   *{ box-sizing:border-box; }
+
+  html, body{ height:100%; }
 
   body{
     margin:0;
@@ -32,10 +35,128 @@
     align-items:center;
     justify-content:center;
     padding:56px 18px;
+    position:relative;
+    overflow-x:hidden;
   }
 
+  /* ---------- falling gold field ---------- */
+  .gold-field{
+    position:fixed;
+    inset:0;
+    overflow:hidden;
+    pointer-events:none;
+    z-index:0;
+  }
+
+  .mote-wrap{
+    position:absolute;
+    top:-8%;
+    opacity:0;
+    animation-name:fall;
+    animation-timing-function:linear;
+    animation-iteration-count:infinite;
+    will-change:transform, opacity;
+  }
+
+  .mote{ display:block; }
+
+  /* diamond sparkle */
+  .mote.spark{
+    width:5px;
+    height:5px;
+    background:var(--gold-bright);
+    transform:rotate(45deg);
+    box-shadow:0 0 6px 1px rgba(212,175,87,0.55);
+  }
+
+  /* leaf shape drawn with a rotated, asymmetric border-radius */
+  .mote.leaf{
+    width:11px;
+    height:15px;
+    background:linear-gradient(160deg, var(--gold-bright), var(--gold));
+    border-radius:0 60% 0 60%;
+    box-shadow:0 0 3px rgba(166,124,46,0.4);
+  }
+
+  @keyframes fall{
+    0%{
+      transform:translate(0, -10vh) rotate(0deg);
+      opacity:0;
+    }
+    8%{
+      opacity:0.85;
+    }
+    90%{
+      opacity:0.7;
+    }
+    100%{
+      transform:translate(var(--drift, 40px), 112vh) rotate(var(--spin, 220deg));
+      opacity:0;
+    }
+  }
+
+  /* keep the gold visible even with reduced motion, just calmer: a static
+     scattered field instead of a moving one */
+  @media (prefers-reduced-motion: reduce){
+    .mote-wrap{
+      animation:none;
+      opacity:0.55;
+      top:var(--static-top, 20%);
+      transform:translate(0,0) rotate(0deg);
+    }
+  }
+
+  /* ---------- cinematic entrance ---------- */
+  @keyframes frame-in{
+    0%{ opacity:0; transform:scale(0.96); }
+    100%{ opacity:1; transform:scale(1); }
+  }
+
+  @keyframes rise-in{
+    0%{ opacity:0; transform:translateY(16px); filter:blur(2px); }
+    100%{ opacity:1; transform:translateY(0); filter:blur(0); }
+  }
+
+  .frame{ animation:frame-in 0.7s cubic-bezier(.19,1,.22,1) both; }
+
+  .card > *{
+    opacity:0;
+    animation:rise-in 0.85s cubic-bezier(.16,.84,.44,1) both;
+  }
+  .card > *:nth-child(1){ animation-delay:0.35s; }
+  .card > *:nth-child(2){ animation-delay:0.48s; }
+  .card > *:nth-child(3){ animation-delay:0.58s; }
+  .card > *:nth-child(4){ animation-delay:0.68s; }
+  .card > *:nth-child(5){ animation-delay:0.80s; }
+  .card > *:nth-child(6){ animation-delay:0.92s; }
+  .card > *:nth-child(7){ animation-delay:1.02s; }
+  .card > *:nth-child(8){ animation-delay:1.14s; }
+  .card > *:nth-child(9){ animation-delay:1.32s; }
+  .card > *:nth-child(10){ animation-delay:1.46s; }
+
+  @media (prefers-reduced-motion: reduce){
+    .frame, .card > *{ animation:none; opacity:1; transform:none; filter:none; }
+  }
+
+  /* ---------- page-exit curtain ---------- */
+  .curtain{
+    position:fixed;
+    inset:0;
+    background:var(--ink);
+    transform:scaleY(0);
+    transform-origin:bottom;
+    z-index:50;
+    pointer-events:none;
+  }
+  .curtain.active{
+    transition:transform 0.65s cubic-bezier(.76,0,.24,1);
+    transform:scaleY(1);
+  }
+
+  /* ---------- card ---------- */
   .frame{
     position:relative;
+    z-index:1;
     max-width:500px;
     width:100%;
     padding:10px;
@@ -173,6 +294,10 @@
 </style>
 </head>
 <body>
+
+  <div class="gold-field" id="goldField"></div>
+  <div class="curtain" id="curtain"></div>
+
   <div class="frame">
     <div class="corner-tl"></div>
     <div class="corner-br"></div>
@@ -207,5 +332,58 @@
       <p class="footnote">GitHub Pages Portfolio</p>
     </div>
   </div>
+
+  <script>
+    (function(){
+      var field = document.getElementById('goldField');
+      var count = window.innerWidth < 480 ? 20 : 34;
+      for (var i = 0; i < count; i++){
+        var wrap = document.createElement('div');
+        var inner = document.createElement('div');
+        var isLeaf = Math.random() < 0.35;
+
+        wrap.className = 'mote-wrap';
+        inner.className = 'mote ' + (isLeaf ? 'leaf' : 'spark');
+
+        var left = Math.random() * 100;
+        var duration = isLeaf ? (11 + Math.random() * 9) : (7 + Math.random() * 8);
+        var delay = Math.random() * 18;
+        var drift = (Math.random() * 140 - 70).toFixed(0) + 'px';
+        var spin = (isLeaf ? (180 + Math.random() * 360) : (60 + Math.random() * 120)).toFixed(0) + 'deg';
+        var scale = (0.6 + Math.random() * 0.9).toFixed(2);
+
+        wrap.style.left = left + '%';
+        wrap.style.animationDuration = duration + 's';
+        wrap.style.animationDelay = '-' + delay + 's';
+        wrap.style.setProperty('--drift', drift);
+        wrap.style.setProperty('--spin', spin);
+        wrap.style.setProperty('--static-top', (Math.random() * 90).toFixed(0) + '%');
+        inner.style.transform = 'scale(' + scale + ')';
+
+        wrap.appendChild(inner);
+        field.appendChild(wrap);
+      }
+    })();
+
+    (function(){
+      var cta = document.querySelector('.cta');
+      var curtain = document.getElementById('curtain');
+      var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      if (!cta) return;
+
+      cta.addEventListener('click', function(e){
+        var href = cta.getAttribute('href');
+        if (!href || reduceMotion) return; // let the link work normally
+
+        e.preventDefault();
+        curtain.classList.add('active');
+        setTimeout(function(){
+          window.location.href = href;
+        }, 620);
+      });
+    })();
+  </script>
+
 </body>
 </html>
