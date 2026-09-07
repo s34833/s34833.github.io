@@ -39,7 +39,96 @@
     overflow-x:hidden;
   }
 
-  /* ---------- falling gold field ---------- */
+  body.loading{ overflow:hidden; }
+
+  /* ================= GAME-STYLE LOADER ================= */
+  .loader{
+    position:fixed;
+    inset:0;
+    z-index:200;
+    background:
+      radial-gradient(circle, rgba(28,42,56,0.06) 1px, transparent 1px) 0 0/22px 22px,
+      var(--paper);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    transition:opacity 0.6s ease, transform 0.6s cubic-bezier(.76,0,.24,1);
+  }
+  .loader.hide{
+    opacity:0;
+    transform:scale(1.04);
+    pointer-events:none;
+  }
+
+  .loader-inner{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    width:min(78vw, 300px);
+  }
+
+  .loader-mark{
+    width:44px;
+    height:44px;
+    margin-bottom:26px;
+    position:relative;
+  }
+  .loader-mark::before,
+  .loader-mark::after{
+    content:"";
+    position:absolute;
+    inset:0;
+    border:2px solid transparent;
+  }
+  .loader-mark::before{
+    border-top-color:var(--gold);
+    border-right-color:var(--gold);
+    animation:spin 1s linear infinite;
+  }
+  .loader-mark::after{
+    inset:9px;
+    border-bottom-color:var(--teal);
+    border-left-color:var(--teal);
+    animation:spin 1.4s linear infinite reverse;
+  }
+  @keyframes spin{ to{ transform:rotate(360deg); } }
+
+  .loader-word{
+    font-family:'Noto Serif Thai', serif;
+    font-weight:700;
+    font-size:15px;
+    letter-spacing:0.08em;
+    color:var(--ink);
+    margin:0 0 18px;
+  }
+
+  .loader-track{
+    width:100%;
+    height:3px;
+    background:var(--teal-pale);
+    position:relative;
+    overflow:hidden;
+    margin-bottom:12px;
+  }
+  .loader-fill{
+    position:absolute;
+    top:0; left:0; bottom:0;
+    width:0%;
+    background:linear-gradient(90deg, var(--gold), var(--gold-bright));
+    transition:width 0.15s linear;
+  }
+
+  .loader-meta{
+    display:flex;
+    justify-content:space-between;
+    width:100%;
+    font-size:10.5px;
+    letter-spacing:0.1em;
+    color:var(--ink-soft);
+    text-transform:uppercase;
+  }
+
+  /* ================= falling gold field ================= */
   .gold-field{
     position:fixed;
     inset:0;
@@ -60,7 +149,6 @@
 
   .mote{ display:block; }
 
-  /* diamond sparkle */
   .mote.spark{
     width:5px;
     height:5px;
@@ -69,7 +157,6 @@
     box-shadow:0 0 6px 1px rgba(212,175,87,0.55);
   }
 
-  /* leaf shape drawn with a rotated, asymmetric border-radius */
   .mote.leaf{
     width:11px;
     height:15px;
@@ -79,34 +166,13 @@
   }
 
   @keyframes fall{
-    0%{
-      transform:translate(0, -10vh) rotate(0deg);
-      opacity:0;
-    }
-    8%{
-      opacity:0.85;
-    }
-    90%{
-      opacity:0.7;
-    }
-    100%{
-      transform:translate(var(--drift, 40px), 112vh) rotate(var(--spin, 220deg));
-      opacity:0;
-    }
+    0%{ transform:translate(0, -10vh) rotate(0deg); opacity:0; }
+    8%{ opacity:0.85; }
+    90%{ opacity:0.7; }
+    100%{ transform:translate(var(--drift, 40px), 112vh) rotate(var(--spin, 220deg)); opacity:0; }
   }
 
-  /* keep the gold visible even with reduced motion, just calmer: a static
-     scattered field instead of a moving one */
-  @media (prefers-reduced-motion: reduce){
-    .mote-wrap{
-      animation:none;
-      opacity:0.55;
-      top:var(--static-top, 20%);
-      transform:translate(0,0) rotate(0deg);
-    }
-  }
-
-  /* ---------- cinematic entrance ---------- */
+  /* ================= cinematic entrance (plays right after the loader hides) ================= */
   @keyframes frame-in{
     0%{ opacity:0; transform:scale(0.96); }
     100%{ opacity:1; transform:scale(1); }
@@ -117,43 +183,39 @@
     100%{ opacity:1; transform:translateY(0); filter:blur(0); }
   }
 
-  .frame{ animation:frame-in 0.7s cubic-bezier(.19,1,.22,1) both; }
+  .frame{ opacity:0; animation:frame-in 0.7s cubic-bezier(.19,1,.22,1) both; animation-delay:1.9s; }
 
   .card > *{
     opacity:0;
     animation:rise-in 0.85s cubic-bezier(.16,.84,.44,1) both;
   }
-  .card > *:nth-child(1){ animation-delay:0.35s; }
-  .card > *:nth-child(2){ animation-delay:0.48s; }
-  .card > *:nth-child(3){ animation-delay:0.58s; }
-  .card > *:nth-child(4){ animation-delay:0.68s; }
-  .card > *:nth-child(5){ animation-delay:0.80s; }
-  .card > *:nth-child(6){ animation-delay:0.92s; }
-  .card > *:nth-child(7){ animation-delay:1.02s; }
-  .card > *:nth-child(8){ animation-delay:1.14s; }
-  .card > *:nth-child(9){ animation-delay:1.32s; }
-  .card > *:nth-child(10){ animation-delay:1.46s; }
+  .card > *:nth-child(1){ animation-delay:2.10s; }
+  .card > *:nth-child(2){ animation-delay:2.24s; }
+  .card > *:nth-child(3){ animation-delay:2.34s; }
+  .card > *:nth-child(4){ animation-delay:2.44s; }
+  .card > *:nth-child(5){ animation-delay:2.56s; }
+  .card > *:nth-child(6){ animation-delay:2.68s; }
+  .card > *:nth-child(7){ animation-delay:2.78s; }
+  .card > *:nth-child(8){ animation-delay:2.90s; }
+  .card > *:nth-child(9){ animation-delay:3.08s; }
+  .card > *:nth-child(10){ animation-delay:3.22s; }
 
-  @media (prefers-reduced-motion: reduce){
-    .frame, .card > *{ animation:none; opacity:1; transform:none; filter:none; }
-  }
-
-  /* ---------- page-exit curtain ---------- */
+  /* ================= page-exit curtain ================= */
   .curtain{
     position:fixed;
     inset:0;
     background:var(--ink);
     transform:scaleY(0);
     transform-origin:bottom;
-    z-index:50;
+    z-index:150;
     pointer-events:none;
   }
   .curtain.active{
-    transition:transform 0.65s cubic-bezier(.76,0,.24,1);
+    transition:transform 0.6s cubic-bezier(.76,0,.24,1);
     transform:scaleY(1);
   }
 
-  /* ---------- card ---------- */
+  /* ================= card ================= */
   .frame{
     position:relative;
     z-index:1;
@@ -293,10 +355,23 @@
   }
 </style>
 </head>
-<body>
+<body class="loading">
+
+  <div class="loader" id="loader">
+    <div class="loader-inner">
+      <div class="loader-mark"></div>
+      <p class="loader-word">พีระพัฒน์</p>
+      <div class="loader-track"><div class="loader-fill" id="loaderFill"></div></div>
+      <div class="loader-meta">
+        <span>กำลังโหลด</span>
+        <span id="loaderPct">0%</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="curtain" id="curtain"></div>
 
   <div class="gold-field" id="goldField"></div>
-  <div class="curtain" id="curtain"></div>
 
   <div class="frame">
     <div class="corner-tl"></div>
@@ -327,13 +402,45 @@
         โฮสต์อยู่บน GitHub Pages
       </p>
 
-      <a class="cta" href="portfolio.html">ดูพอร์ตโฟลิโอ</a>
+      <a class="cta" id="ctaLink" href="portfolio.html">ดูพอร์ตโฟลิโอ</a>
 
       <p class="footnote">GitHub Pages Portfolio</p>
     </div>
   </div>
 
   <script>
+    /* ---- 1. game-style loading screen ---- */
+    (function(){
+      var loader = document.getElementById('loader');
+      var fill = document.getElementById('loaderFill');
+      var pct = document.getElementById('loaderPct');
+      var pctValue = 0;
+      var target = 100;
+      var duration = 1650; // ms
+      var start = null;
+
+      function step(ts){
+        if (start === null) start = ts;
+        var elapsed = ts - start;
+        var progress = Math.min(elapsed / duration, 1);
+        // ease-out so it feels like it's "catching up" near the end
+        var eased = 1 - Math.pow(1 - progress, 3);
+        pctValue = Math.round(eased * target);
+        fill.style.width = pctValue + '%';
+        pct.textContent = pctValue + '%';
+        if (progress < 1){
+          requestAnimationFrame(step);
+        } else {
+          setTimeout(function(){
+            loader.classList.add('hide');
+            document.body.classList.remove('loading');
+          }, 200);
+        }
+      }
+      requestAnimationFrame(step);
+    })();
+
+    /* ---- 2. falling gold field ---- */
     (function(){
       var field = document.getElementById('goldField');
       var count = window.innerWidth < 480 ? 20 : 34;
@@ -346,18 +453,17 @@
         inner.className = 'mote ' + (isLeaf ? 'leaf' : 'spark');
 
         var left = Math.random() * 100;
-        var duration = isLeaf ? (11 + Math.random() * 9) : (7 + Math.random() * 8);
+        var dur = isLeaf ? (11 + Math.random() * 9) : (7 + Math.random() * 8);
         var delay = Math.random() * 18;
         var drift = (Math.random() * 140 - 70).toFixed(0) + 'px';
         var spin = (isLeaf ? (180 + Math.random() * 360) : (60 + Math.random() * 120)).toFixed(0) + 'deg';
         var scale = (0.6 + Math.random() * 0.9).toFixed(2);
 
         wrap.style.left = left + '%';
-        wrap.style.animationDuration = duration + 's';
+        wrap.style.animationDuration = dur + 's';
         wrap.style.animationDelay = '-' + delay + 's';
         wrap.style.setProperty('--drift', drift);
         wrap.style.setProperty('--spin', spin);
-        wrap.style.setProperty('--static-top', (Math.random() * 90).toFixed(0) + '%');
         inner.style.transform = 'scale(' + scale + ')';
 
         wrap.appendChild(inner);
@@ -365,22 +471,21 @@
       }
     })();
 
+    /* ---- 3. curtain-wipe transition before leaving the page ---- */
     (function(){
-      var cta = document.querySelector('.cta');
+      var cta = document.getElementById('ctaLink');
       var curtain = document.getElementById('curtain');
-      var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
       if (!cta) return;
 
       cta.addEventListener('click', function(e){
         var href = cta.getAttribute('href');
-        if (!href || reduceMotion) return; // let the link work normally
+        if (!href) return;
 
         e.preventDefault();
         curtain.classList.add('active');
         setTimeout(function(){
           window.location.href = href;
-        }, 620);
+        }, 600);
       });
     })();
   </script>
