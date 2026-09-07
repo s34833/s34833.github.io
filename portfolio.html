@@ -36,6 +36,25 @@
     border-bottom:1px solid var(--line);
   }
 
+  .photo-wrap{
+    position:relative;
+    display:inline-block;
+  }
+
+  .school-badge{
+    position:absolute;
+    bottom:6px;
+    right:6px;
+    width:56px;
+    height:56px;
+    border-radius:50%;
+    background:var(--card);
+    border:3px solid var(--paper);
+    box-shadow:0 2px 8px rgba(28,42,56,0.25);
+    object-fit:contain;
+    padding:4px;
+  }
+
   header img{
     width:200px;
     height:200px;
@@ -110,15 +129,9 @@
 
   .panel{
     display:none;
-    animation: fade 0.25s ease;
   }
 
   .panel.active{ display:block; }
-
-  @keyframes fade{
-    from{ opacity:0; transform:translateY(6px); }
-    to{ opacity:1; transform:translateY(0); }
-  }
 
   .panel h2{
     font-family:'Noto Serif Thai', serif;
@@ -153,9 +166,19 @@
     padding:16px 20px;
     background:var(--teal-pale);
     margin-bottom:14px;
+    display:flex;
+    align-items:center;
+    gap:16px;
   }
 
-  .edu-block h3{
+  .edu-logo{
+    width:44px;
+    height:44px;
+    object-fit:contain;
+    flex-shrink:0;
+  }
+
+  .edu-text h3{
     font-family:'Noto Serif Thai', serif;
     font-size:15.5px;
     font-weight:600;
@@ -163,7 +186,7 @@
     margin:0 0 4px;
   }
 
-  .edu-block p{ margin:0; font-size:14.5px; color:var(--ink); }
+  .edu-text p{ margin:0; font-size:14.5px; color:var(--ink); }
 
   ul.list{
     list-style:none;
@@ -292,8 +315,35 @@
     color:var(--ink-soft);
   }
 
+  /* ---------- staggered "type it in" reveal for panel content ---------- */
+  @keyframes rise-in{
+    0%{ opacity:0; transform:translateY(14px); filter:blur(1.5px); }
+    100%{ opacity:1; transform:translateY(0); filter:blur(0); }
+  }
+
+  .reveal-item{
+    opacity:0;
+    animation:rise-in 0.55s cubic-bezier(.16,.84,.44,1) both;
+  }
+
+  /* ---------- page-exit curtain ---------- */
+  .curtain{
+    position:fixed;
+    inset:0;
+    background:var(--ink);
+    transform:scaleY(0);
+    transform-origin:bottom;
+    z-index:150;
+    pointer-events:none;
+  }
+  .curtain.active{
+    transition:transform 0.6s cubic-bezier(.76,0,.24,1);
+    transform:scaleY(1);
+  }
+
   @media (max-width:600px){
     header img{ width:150px; height:150px; }
+    .school-badge{ width:44px; height:44px; }
     header h1{ font-size:24px; }
     nav.tabs button{ font-size:13px; padding:13px 12px; }
   }
@@ -302,8 +352,13 @@
 
 <body>
 
+<div class="curtain" id="curtain"></div>
+
 <header>
-  <img src="Frank.jpg" alt="รูปเจ้าของผลงาน">
+  <div class="photo-wrap">
+    <img src="Frank.jpg" alt="รูปเจ้าของผลงาน">
+    <img class="school-badge" src="school-logo.png" alt="ตราโรงเรียนบ้านบึง อุตสาหกรรมนุเคราะห์">
+  </div>
   <p class="eyebrow">แฟ้มสะสมผลงาน</p>
   <h1>พีระพัฒน์ มะใบ</h1>
   <p>โรงเรียนบ้านบึง "อุตสาหกรรมนุเคราะห์"</p>
@@ -344,16 +399,25 @@
     <h2>ประวัติการศึกษา</h2>
     <hr class="rule">
     <div class="edu-block">
-      <h3>ระดับประถมศึกษา</h3>
-      <p>โรงเรียนอนุบาลบ้านบึง</p>
+      <img class="edu-logo" src="primary-logo.png" alt="ตราโรงเรียนอนุบาลบ้านบึง">
+      <div class="edu-text">
+        <h3>ระดับประถมศึกษา</h3>
+        <p>โรงเรียนอนุบาลบ้านบึง</p>
+      </div>
     </div>
     <div class="edu-block">
-      <h3>ระดับมัธยมศึกษาตอนต้น</h3>
-      <p>โรงเรียนบ้านบึง "อุตสาหกรรมนุเคราะห์"</p>
+      <img class="edu-logo" src="school-logo.png" alt="ตราโรงเรียนบ้านบึง อุตสาหกรรมนุเคราะห์">
+      <div class="edu-text">
+        <h3>ระดับมัธยมศึกษาตอนต้น</h3>
+        <p>โรงเรียนบ้านบึง "อุตสาหกรรมนุเคราะห์"</p>
+      </div>
     </div>
     <div class="edu-block">
-      <h3>ระดับมัธยมศึกษาตอนปลาย</h3>
-      <p>โรงเรียนบ้านบึง "อุตสาหกรรมนุเคราะห์"</p>
+      <img class="edu-logo" src="school-logo.png" alt="ตราโรงเรียนบ้านบึง อุตสาหกรรมนุเคราะห์">
+      <div class="edu-text">
+        <h3>ระดับมัธยมศึกษาตอนปลาย</h3>
+        <p>โรงเรียนบ้านบึง "อุตสาหกรรมนุเคราะห์"</p>
+      </div>
     </div>
   </section>
 
@@ -395,7 +459,7 @@
 </main>
 
 <div class="back-wrap">
-  <a href="index.html" class="cta">กลับหน้าแรก</a>
+  <a href="index.html" class="cta" id="backLink">กลับหน้าแรก</a>
 </div>
 
 <footer>
@@ -427,6 +491,20 @@
     `).join('');
   }
 
+  /* ---- staggered reveal: each heading/paragraph/item appears one after another ---- */
+  function revealPanel(panel){
+    if (!panel) return;
+    var items = panel.querySelectorAll(
+      'h2, hr.rule, p, .edu-block, ul.list li, .honor-card, .honor-empty, .contact-item'
+    );
+    items.forEach(function(el, i){
+      el.classList.remove('reveal-item');
+      void el.offsetWidth; // force reflow so the animation restarts every time
+      el.style.animationDelay = (i * 70) + 'ms';
+      el.classList.add('reveal-item');
+    });
+  }
+
   const buttons = document.querySelectorAll('nav.tabs button');
   const panels = document.querySelectorAll('.panel');
 
@@ -435,10 +513,30 @@
       buttons.forEach(b => b.classList.remove('active'));
       panels.forEach(p => p.classList.remove('active'));
       btn.classList.add('active');
-      document.getElementById(btn.dataset.tab).classList.add('active');
+      const activePanel = document.getElementById(btn.dataset.tab);
+      activePanel.classList.add('active');
+      revealPanel(activePanel);
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
   });
+
+  // reveal the first panel on page load too
+  revealPanel(document.getElementById('intro'));
+
+  /* ---- curtain-wipe transition before going back to the home page ---- */
+  const backLink = document.getElementById('backLink');
+  const curtain = document.getElementById('curtain');
+  if (backLink) {
+    backLink.addEventListener('click', function(e){
+      const href = backLink.getAttribute('href');
+      if (!href) return;
+      e.preventDefault();
+      curtain.classList.add('active');
+      setTimeout(function(){
+        window.location.href = href;
+      }, 600);
+    });
+  }
 </script>
 
 </body>
