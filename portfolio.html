@@ -212,6 +212,36 @@
     transform:rotate(45deg);
   }
 
+  /* ---------- university / faculty of interest list ---------- */
+  ol.uni-list{
+    list-style:none;
+    padding:0;
+    margin:0;
+    counter-reset:uni;
+  }
+
+  .uni-item{
+    padding:16px 20px;
+    background:var(--teal-pale);
+    margin-bottom:14px;
+  }
+
+  .uni-item h3{
+    counter-increment:uni;
+    font-family:'Noto Serif Thai', serif;
+    font-size:15.5px;
+    font-weight:600;
+    color:var(--teal);
+    margin:0 0 10px;
+  }
+
+  .uni-item h3::before{
+    content: counter(uni) ". ";
+  }
+
+  .uni-item ul.list{ margin-top:2px; }
+  .uni-item ul.list li{ margin-bottom:8px; font-size:14.5px; }
+
   .honor-grid{
     display:grid;
     grid-template-columns:repeat(auto-fill, minmax(190px, 1fr));
@@ -368,6 +398,7 @@
   <button class="active" data-tab="intro">คำนำ</button>
   <button data-tab="profile">ประวัติส่วนตัว</button>
   <button data-tab="education">ประวัติการศึกษา</button>
+  <button data-tab="universities">มหาวิทยาลัยที่สนใจ</button>
   <button data-tab="activities">กิจกรรม</button>
   <button data-tab="skills">ความสามารถพิเศษ</button>
   <button data-tab="honors">เกียรติบัตร</button>
@@ -419,6 +450,37 @@
         <p>โรงเรียนบ้านบึง "อุตสาหกรรมนุเคราะห์"</p>
       </div>
     </div>
+  </section>
+
+  <section class="panel" id="universities">
+    <h2>มหาวิทยาลัยและคณะที่สนใจ</h2>
+    <hr class="rule">
+    <ol class="uni-list">
+      <li class="uni-item">
+        <h3>มหาวิทยาลัยมหิดล</h3>
+        <ul class="list">
+          <li>คณะเทคนิคการแพทย์</li>
+          <li>คณะแพทยศาสตร์</li>
+          <li>คณะเภสัชศาสตร์</li>
+        </ul>
+      </li>
+      <li class="uni-item">
+        <h3>มหาวิทยาลัยเกษตรศาสตร์</h3>
+        <ul class="list">
+          <li>คณะเทคนิคการแพทย์</li>
+          <li>คณะแพทยศาสตร์</li>
+          <li>คณะเภสัชศาสตร์</li>
+        </ul>
+      </li>
+      <li class="uni-item">
+        <h3>จุฬาลงกรณ์มหาวิทยาลัย</h3>
+        <ul class="list">
+          <li>คณะเทคนิคการแพทย์</li>
+          <li>คณะแพทยศาสตร์</li>
+          <li>คณะเภสัชศาสตร์</li>
+        </ul>
+      </li>
+    </ol>
   </section>
 
   <section class="panel" id="activities">
@@ -498,7 +560,7 @@
   function revealPanel(panel){
     if (!panel) return;
     var items = panel.querySelectorAll(
-      'h2, hr.rule, p, .edu-block, ul.list li, .honor-card, .honor-empty, .contact-item'
+      'h2, hr.rule, p, .edu-block, ul.list li, .uni-item, .honor-card, .honor-empty, .contact-item'
     );
     items.forEach(function(el, i){
       el.classList.remove('reveal-item');
