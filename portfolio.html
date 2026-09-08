@@ -212,7 +212,7 @@
     transform:rotate(45deg);
   }
 
-  /* ---------- university / faculty of interest list ---------- */
+  /* ---------- university list ---------- */
   ol.uni-list{
     list-style:none;
     padding:0;
@@ -242,28 +242,30 @@
   .uni-item ul.list{ margin-top:2px; }
   .uni-item ul.list li{ margin-bottom:8px; font-size:14.5px; }
 
-  .honor-grid{
+  /* ---------- Grid layout for Honor, Activities, Skills ---------- */
+  .card-grid{
     display:grid;
-    grid-template-columns:repeat(auto-fill, minmax(190px, 1fr));
+    grid-template-columns:repeat(auto-fill, minmax(210px, 1fr));
     gap:18px;
   }
 
-  .honor-card{
+  .media-card{
     display:block;
     text-decoration:none;
     color:var(--ink);
     border:1px solid var(--line);
     background:var(--card);
     overflow:hidden;
+    cursor:pointer;
     transition: box-shadow 0.15s ease, transform 0.15s ease;
   }
 
-  .honor-card:hover{
+  .media-card:hover{
     box-shadow:0 8px 20px rgba(28,42,56,0.1);
     transform:translateY(-3px);
   }
 
-  .honor-card .thumb{
+  .media-card .thumb{
     width:100%;
     aspect-ratio:4/3;
     object-fit:cover;
@@ -271,30 +273,130 @@
     border-bottom:2px solid var(--gold);
   }
 
-  .honor-card .caption{
+  .media-card .caption{
     padding:12px 14px;
   }
 
-  .honor-card .caption .title{
+  .media-card .caption .title{
     font-family:'Noto Serif Thai', serif;
     font-weight:600;
     font-size:14.5px;
     margin:0 0 3px;
   }
 
-  .honor-card .caption .year{
-    font-size:12px;
+  .media-card .caption .desc{
+    font-size:13px;
     color:var(--ink-soft);
-    margin:0;
+    margin:4px 0 0;
+    line-height:1.5;
   }
 
-  .honor-empty{
+  .media-card .caption .year{
+    font-size:12px;
+    color:var(--teal);
+    font-weight:500;
+    margin:4px 0 0;
+  }
+
+  .empty-box{
     grid-column:1 / -1;
     text-align:center;
     padding:44px 20px;
     border:1px dashed var(--line);
     color:var(--ink-soft);
     font-size:14.5px;
+  }
+
+  /* ---------- Modal Lightbox ---------- */
+  .modal{
+    display:none;
+    position:fixed;
+    inset:0;
+    z-index:200;
+    background:rgba(28,42,56,0.85);
+    backdrop-filter:blur(4px);
+    justify-content:center;
+    align-items:center;
+    padding:20px;
+    opacity:0;
+    transition:opacity 0.25s ease;
+  }
+
+  .modal.show{
+    display:flex;
+    opacity:1;
+  }
+
+  .modal-content{
+    background:var(--card);
+    max-width:650px;
+    width:100%;
+    border-radius:4px;
+    overflow:hidden;
+    position:relative;
+    box-shadow:0 12px 30px rgba(0,0,0,0.3);
+    transform:scale(0.95);
+    transition:transform 0.25s ease;
+  }
+
+  .modal.show .modal-content{
+    transform:scale(1);
+  }
+
+  .modal-close{
+    position:absolute;
+    top:10px;
+    right:12px;
+    background:rgba(0,0,0,0.5);
+    color:#fff;
+    border:none;
+    width:36px;
+    height:36px;
+    border-radius:50%;
+    font-size:18px;
+    cursor:pointer;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    z-index:10;
+    transition:background 0.15s ease;
+  }
+
+  .modal-close:hover{
+    background:var(--gold);
+  }
+
+  .modal-img{
+    width:100%;
+    max-height:60vh;
+    object-fit:contain;
+    background:#000;
+    display:block;
+  }
+
+  .modal-info{
+    padding:20px;
+  }
+
+  .modal-info h3{
+    font-family:'Noto Serif Thai', serif;
+    margin:0 0 6px;
+    font-size:18px;
+    color:var(--ink);
+  }
+
+  .modal-info .modal-year{
+    font-size:13px;
+    color:var(--teal);
+    font-weight:600;
+    margin-bottom:8px;
+  }
+
+  .modal-info p{
+    font-size:14px;
+    color:var(--ink-soft);
+    margin:0;
+    line-height:1.6;
   }
 
   .contact-item{
@@ -345,7 +447,7 @@
     color:var(--ink-soft);
   }
 
-  /* ---------- staggered "type it in" reveal for panel content ---------- */
+  /* ---------- staggered reveal ---------- */
   @keyframes rise-in{
     0%{ opacity:0; transform:translateY(14px); filter:blur(1.5px); }
     100%{ opacity:1; transform:translateY(0); filter:blur(0); }
@@ -383,6 +485,19 @@
 <body>
 
 <div class="curtain" id="curtain"></div>
+
+<!-- Modal สำหรับขยายรูปดูรายละเอียด -->
+<div class="modal" id="imageModal">
+  <div class="modal-content">
+    <button class="modal-close" id="modalClose">&times;</button>
+    <img src="" alt="" class="modal-img" id="modalImg">
+    <div class="modal-info">
+      <h3 id="modalTitle"></h3>
+      <div class="modal-year" id="modalYear"></div>
+      <p id="modalDesc"></p>
+    </div>
+  </div>
+</div>
 
 <header>
   <div class="photo-wrap">
@@ -486,28 +601,19 @@
   <section class="panel" id="activities">
     <h2>กิจกรรม</h2>
     <hr class="rule">
-    <ul class="list">
-      <li>เข้าร่วมการแข่งขันคณิตศาสตร์ภายในโรงเรียน</li>
-      <li>กิจกรรมจิตอาสาพัฒนาชุมชน</li>
-      <li>กิจกรรมกีฬาสีของโรงเรียน</li>
-      <li>ค่ายวิชาการและค่ายอาชีพ</li>
-    </ul>
+    <div class="card-grid" id="activities-grid"></div>
   </section>
 
   <section class="panel" id="skills">
     <h2>ความสามารถพิเศษ</h2>
     <hr class="rule">
-    <ul class="list">
-      <li>เขียนโปรแกรม JavaScript เบื้องต้น</li>
-      <li>สื่อสารภาษาอังกฤษได้</li>
-      <li>ใช้โปรแกรม Microsoft Office</li>
-    </ul>
+    <div class="card-grid" id="skills-grid"></div>
   </section>
 
   <section class="panel" id="honors">
     <h2>เกียรติบัตร</h2>
     <hr class="rule">
-    <div class="honor-grid" id="honor-grid"></div>
+    <div class="card-grid" id="honor-grid"></div>
   </section>
 
   <section class="panel" id="contact">
@@ -529,42 +635,154 @@
 </footer>
 
 <script>
-  // เพิ่มเกียรติบัตรใหม่ได้โดยเพิ่มบรรทัดในลิสต์ด้านล่างนี้
-  // img   = ชื่อไฟล์รูปเกียรติบัตร (วางไฟล์รูปไว้โฟลเดอร์เดียวกับหน้านี้ เช่น cert1.jpg)
-  // title = ชื่อรางวัล/เกียรติบัตร
-  // year  = ปีที่ได้รับ (ไม่ใส่ก็ได้)
+  // 1. ข้อมูลเกียรติบัตร (สามารถเพิ่ม desc: 'คำอธิบายเพิ่มเติม' ได้)
   const honors = [
-    { img: 'cert1.jpg', title: 'รางวัลชมเชย คลิปวิดีโอ Tiktok "ละครคุณธรรมคณิตศาสตร์"', year: '2567' },
-    { img: 'cert2.jpg', title: 'อบรมเสริมสร้างความปลอดภัยในสถานศึกษา (ดับเพลิง-อพยพหนีไฟ)', year: '2567' },
-    { img: 'cert3.jpg', title: 'ทดสอบกำลังใจ กระโดดหอสูง 34 ฟุต (นศท.)', year: '2569' },
-    { img: 'cert4.jpg', title: 'ประกวดคำขวัญต่อต้านการทุจริต ระดับ ม.ปลาย', year: '2568' },
+    { 
+      img: 'cert1.jpg', 
+      title: 'รางวัลชมเชย คลิปวิดีโอ Tiktok "ละครคุณธรรมคณิตศาสตร์"', 
+      year: '2567',
+      desc: 'ได้รับรางวัลชมเชยจากการประกวดสร้างสรรค์คลิปวิดีโอสั้นสอดแทรกคุณธรรมและเนื้อหาวิชาคณิตศาสตร์'
+    },
+    { 
+      img: 'cert2.jpg', 
+      title: 'อบรมเสริมสร้างความปลอดภัยในสถานศึกษา', 
+      year: '2567',
+      desc: 'ผ่านการฝึกอบรมการดับเพลิงขั้นต้นและการอพยพหนีไฟเพื่อเสริมสร้างความปลอดภัยในโรงเรียน'
+    },
+    { 
+      img: 'cert3.jpg', 
+      title: 'ทดสอบกำลังใจ กระโดดหอสูง 34 ฟุต (นศท.)', 
+      year: '2569',
+      desc: 'ผ่านการทดสอบกำลังใจฝึกกระโดดหอสูง 34 ฟุต จากค่ายฝึกนักศึกษาวิชาทหาร'
+    },
+    { 
+      img: 'cert4.jpg', 
+      title: 'ประกวดคำขวัญต่อต้านการทุจริต ระดับ ม.ปลาย', 
+      year: '2568',
+      desc: 'เข้าร่วมและได้รับเกียรติบัตรจากการประกวดแต่งคำขวัญรณรงค์ต่อต้านการทุจริตคอร์รัปชัน'
+    },
   ];
 
-  const honorGrid = document.getElementById('honor-grid');
+  // 2. ข้อมูลกิจกรรม (ใส่รูปภาพ คำอธิบาย เพิ่มเติมได้)
+  const activities = [
+    {
+      img: 'act1.jpg',
+      title: 'การแข่งขันคณิตศาสตร์ภายในโรงเรียน',
+      desc: 'เข้าร่วมการทดสอบและแข่งขันแก้โจทย์ปัญหาทางคณิตศาสตร์ระดับชั้นมัธยมศึกษา'
+    },
+    {
+      img: 'act2.jpg',
+      title: 'กิจกรรมจิตอาสาพัฒนาชุมชน',
+      desc: 'เข้าร่วมทำความสะอาดและบำเพลประโยชน์รอบบริเวณชุมชนและโรงเรียน'
+    },
+    {
+      img: 'act3.jpg',
+      title: 'กิจกรรมกีฬาสีของโรงเรียน',
+      desc: 'มีส่วนร่วมในคณะทำงานและลงแข่งขันกีฬาประเภทต่างๆ ในงานกีฬาสีประจำปี'
+    },
+    {
+      img: 'act4.jpg',
+      title: 'ค่ายวิชาการและค่ายอาชีพ',
+      desc: 'เข้าร่วมเวิร์กช็อปแนะแนวศึกษาต่อและเรียนรู้ทักษะอาชีพในอนาคต'
+    }
+  ];
 
-  if (honors.length === 0) {
-    honorGrid.innerHTML = '<div class="honor-empty">ยังไม่มีเกียรติบัตร — เพิ่มได้โดยแก้ไขรายการ honors ในโค้ด</div>';
-  } else {
-    honorGrid.innerHTML = honors.map(h => `
-      <a class="honor-card" href="${h.img}" target="_blank" rel="noopener">
-        <img class="thumb" src="${h.img}" alt="${h.title}">
+  // 3. ข้อมูลความสามารถพิเศษ
+  const skills = [
+    {
+      img: 'skill1.jpg',
+      title: 'เขียนโปรแกรม JavaScript เบื้องต้น',
+      desc: 'สามารถเขียนฟังก์ชัน พัฒนาเว็บแบบ Interactive และแก้ไข DOM ได้เบื้องต้น'
+    },
+    {
+      img: 'skill2.jpg',
+      title: 'การสื่อสารภาษาอังกฤษ',
+      desc: 'สามารถสื่อสาร สนทนาพื้นฐาน และอ่านจับใจความบทความภาษาอังกฤษได้ดี'
+    },
+    {
+      img: 'skill3.jpg',
+      title: 'ใช้งานโปรแกรม Microsoft Office',
+      desc: 'ใช้งาน Word, Excel และ PowerPoint ในการนำเสนอและจัดทำเอกสารได้อย่างคล่องแคล่ว'
+    }
+  ];
+
+  // ฟังก์ชันช่วยสร้าง HTML การ์ด
+  function renderCards(dataList, containerId) {
+    const container = document.getElementById(containerId);
+    if (!container) return;
+
+    if (dataList.length === 0) {
+      container.innerHTML = '<div class="empty-box">ยังไม่มีข้อมูลรายการ</div>';
+      return;
+    }
+
+    container.innerHTML = dataList.map((item, index) => `
+      <div class="media-card" onclick="openModal('${containerId}', ${index})">
+        <img class="thumb" src="${item.img}" alt="${item.title}" onerror="this.src='https://via.placeholder.com/300x225?text=No+Image'">
         <div class="caption">
-          <p class="title">${h.title}</p>
-          ${h.year ? `<p class="year">${h.year}</p>` : ''}
+          <p class="title">${item.title}</p>
+          ${item.year ? `<p class="year">ปี พ.ศ. ${item.year}</p>` : ''}
+          ${item.desc ? `<p class="desc">${item.desc}</p>` : ''}
         </div>
-      </a>
+      </div>
     `).join('');
   }
 
-  /* ---- staggered reveal: each heading/paragraph/item appears one after another ---- */
+  // แสดงผลข้อมูลลงในแต่ละ Section
+  renderCards(honors, 'honor-grid');
+  renderCards(activities, 'activities-grid');
+  renderCards(skills, 'skills-grid');
+
+  // システム Modal Lightbox Controls
+  const modal = document.getElementById('imageModal');
+  const modalImg = document.getElementById('modalImg');
+  const modalTitle = document.getElementById('modalTitle');
+  const modalYear = document.getElementById('modalYear');
+  const modalDesc = document.getElementById('modalDesc');
+  const modalClose = document.getElementById('modalClose');
+
+  function openModal(type, index) {
+    let item = null;
+    if (type === 'honor-grid') item = honors[index];
+    else if (type === 'activities-grid') item = activities[index];
+    else if (type === 'skills-grid') item = skills[index];
+
+    if (!item) return;
+
+    modalImg.src = item.img;
+    modalImg.onerror = () => { modalImg.src = 'https://via.placeholder.com/600x400?text=No+Image'; };
+    modalTitle.textContent = item.title || '';
+    modalYear.textContent = item.year ? `ปีที่ได้รับ: พ.ศ. ${item.year}` : '';
+    modalDesc.textContent = item.desc || 'ไม่มีคำอธิบายเพิ่มเติม';
+
+    modal.classList.add('show');
+  }
+
+  function closeModal() {
+    modal.classList.remove('show');
+  }
+
+  modalClose.addEventListener('click', closeModal);
+  modal.addEventListener('click', (e) => {
+    if (e.target === modal) closeModal();
+  });
+
+  // Esc key to close modal
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && modal.classList.contains('show')) {
+      closeModal();
+    }
+  });
+
+  /* ---- staggered reveal ---- */
   function revealPanel(panel){
     if (!panel) return;
     var items = panel.querySelectorAll(
-      'h2, hr.rule, p, .edu-block, ul.list li, .uni-item, .honor-card, .honor-empty, .contact-item'
+      'h2, hr.rule, p, .edu-block, ul.list li, .uni-item, .media-card, .empty-box, .contact-item'
     );
     items.forEach(function(el, i){
       el.classList.remove('reveal-item');
-      void el.offsetWidth; // force reflow so the animation restarts every time
+      void el.offsetWidth;
       el.style.animationDelay = (i * 70) + 'ms';
       el.classList.add('reveal-item');
     });
@@ -585,10 +803,9 @@
     });
   });
 
-  // reveal the first panel on page load too
   revealPanel(document.getElementById('intro'));
 
-  /* ---- curtain-wipe transition before going back to the home page ---- */
+  /* ---- curtain transition ---- */
   const backLink = document.getElementById('backLink');
   const curtain = document.getElementById('curtain');
   if (backLink) {
