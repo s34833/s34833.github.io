@@ -1,0 +1,679 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ประวัติการศึกษา — พีระพัฒน์ มะใบ</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Thai:wght@500;600;700&family=Noto+Sans+Thai:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#FAF7EE;
+  --ink:#1C2A38;
+  --ink-soft:#5C6773;
+  --gold:#A67C2E;
+  --teal:#1E5B58;
+  --teal-pale:#E7EFEC;
+  --card:#FFFFFF;
+  --line:#DDD6C4;
+}
+
+*{ box-sizing:border-box; }
+
+body{
+  margin:0;
+  background:var(--paper);
+  color:var(--ink);
+  font-family:'Noto Sans Thai', sans-serif;
+  line-height:1.85;
+}
+
+header{
+  text-align:center;
+  padding:56px 20px 28px;
+  background:var(--card);
+  border-bottom:1px solid var(--line);
+}
+
+.photo-wrap{
+  position:relative;
+  display:inline-block;
+}
+
+.school-badge{
+  position:absolute;
+  bottom:6px;
+  right:6px;
+  width:56px;
+  height:56px;
+  border-radius:50%;
+  background:var(--card);
+  border:3px solid var(--paper);
+  box-shadow:0 2px 8px rgba(28,42,56,0.25);
+  object-fit:contain;
+  padding:4px;
+}
+
+header img.avatar{
+  width:200px;
+  height:200px;
+  border-radius:50%;
+  object-fit:cover;
+  border:8px solid var(--gold);
+  padding:6px;
+}
+
+.eyebrow{
+  font-size:11.5px;
+  font-weight:500;
+  letter-spacing:0.2em;
+  color:var(--ink-soft);
+  text-transform:uppercase;
+  margin:22px 0 10px;
+}
+
+header h1{
+  font-family:'Noto Serif Thai', serif;
+  font-weight:700;
+  font-size:30px;
+  margin:0 0 8px;
+  color:var(--ink);
+}
+
+header p{
+  font-size:14px;
+  color:var(--ink-soft);
+  margin:0;
+}
+
+nav.tabs{
+  position:sticky;
+  top:0;
+  z-index:10;
+  background:var(--card);
+  border-bottom:1px solid var(--line);
+  display:flex;
+  justify-content:center;
+  flex-wrap:wrap;
+  gap:2px;
+  padding:0 12px;
+}
+
+nav.tabs a{
+  appearance:none;
+  background:none;
+  border:none;
+  border-bottom:2.5px solid transparent;
+  font-family:'Noto Sans Thai', sans-serif;
+  font-size:14.5px;
+  font-weight:500;
+  color:var(--ink-soft);
+  padding:16px 18px;
+  cursor:pointer;
+  text-decoration:none;
+  display:inline-block;
+  transition: color 0.15s ease, border-color 0.15s ease;
+}
+
+nav.tabs a:hover{ color:var(--ink); }
+
+nav.tabs a.active{
+  color:var(--teal);
+  border-bottom-color:var(--teal);
+}
+
+main{
+  max-width:760px;
+  margin:0 auto;
+  padding:44px 24px 64px;
+}
+
+.panel h2{
+  font-family:'Noto Serif Thai', serif;
+  font-weight:600;
+  font-size:21px;
+  color:var(--ink);
+  margin:0 0 6px;
+}
+
+.rule{
+  width:40px;
+  height:2px;
+  background:var(--gold);
+  margin:0 0 24px;
+  border:none;
+}
+
+.panel p{
+  font-size:15px;
+  color:var(--ink);
+  margin:0 0 12px;
+}
+
+.panel p strong{
+  color:var(--ink-soft);
+  font-weight:500;
+  display:inline-block;
+  min-width:96px;
+}
+
+.edu-block{
+  padding:16px 20px;
+  background:var(--teal-pale);
+  margin-bottom:14px;
+  display:flex;
+  align-items:center;
+  gap:16px;
+}
+
+.edu-logo{
+  width:44px;
+  height:44px;
+  object-fit:contain;
+  flex-shrink:0;
+}
+
+.edu-text h3{
+  font-family:'Noto Serif Thai', serif;
+  font-size:15.5px;
+  font-weight:600;
+  color:var(--teal);
+  margin:0 0 4px;
+}
+
+.edu-text p{ margin:0; font-size:14.5px; color:var(--ink); }
+
+ul.list{
+  list-style:none;
+  padding:0;
+  margin:0;
+}
+
+ul.list li{
+  position:relative;
+  padding-left:22px;
+  margin-bottom:12px;
+  font-size:15px;
+}
+
+ul.list li::before{
+  content:"";
+  position:absolute;
+  left:0;
+  top:9px;
+  width:6px;
+  height:6px;
+  background:var(--gold);
+  transform:rotate(45deg);
+}
+
+/* ---------- university list ---------- */
+ol.uni-list{
+  list-style:none;
+  padding:0;
+  margin:0;
+  counter-reset:uni;
+}
+
+.uni-item{
+  padding:16px 20px;
+  background:var(--teal-pale);
+  margin-bottom:14px;
+}
+
+.uni-item h3{
+  counter-increment:uni;
+  font-family:'Noto Serif Thai', serif;
+  font-size:15.5px;
+  font-weight:600;
+  color:var(--teal);
+  margin:0 0 10px;
+}
+
+.uni-item h3::before{
+  content: counter(uni) ". ";
+}
+
+.uni-item ul.list{ margin-top:2px; }
+.uni-item ul.list li{ margin-bottom:8px; font-size:14.5px; }
+
+/* ---------- Grid layout for Honor, Activities, Skills ---------- */
+.card-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill, minmax(210px, 1fr));
+  gap:18px;
+}
+
+.media-card{
+  display:block;
+  text-decoration:none;
+  color:var(--ink);
+  border:1px solid var(--line);
+  background:var(--card);
+  overflow:hidden;
+  cursor:pointer;
+  transition: box-shadow 0.15s ease, transform 0.15s ease;
+}
+
+.media-card:hover{
+  box-shadow:0 8px 20px rgba(28,42,56,0.1);
+  transform:translateY(-3px);
+}
+
+.media-card .thumb{
+  width:100%;
+  aspect-ratio:4/3;
+  object-fit:cover;
+  display:block;
+  border-bottom:2px solid var(--gold);
+}
+
+.media-card .caption{
+  padding:12px 14px;
+}
+
+.media-card .caption .title{
+  font-family:'Noto Serif Thai', serif;
+  font-weight:600;
+  font-size:14.5px;
+  margin:0 0 3px;
+}
+
+.media-card .caption .desc{
+  font-size:13px;
+  color:var(--ink-soft);
+  margin:4px 0 0;
+  line-height:1.5;
+}
+
+.media-card .caption .year{
+  font-size:12px;
+  color:var(--teal);
+  font-weight:500;
+  margin:4px 0 0;
+}
+
+.empty-box{
+  grid-column:1 / -1;
+  text-align:center;
+  padding:44px 20px;
+  border:1px dashed var(--line);
+  color:var(--ink-soft);
+  font-size:14.5px;
+}
+
+/* ---------- Modal Lightbox ---------- */
+.modal{
+  display:none;
+  position:fixed;
+  inset:0;
+  z-index:200;
+  background:rgba(28,42,56,0.85);
+  backdrop-filter:blur(4px);
+  justify-content:center;
+  align-items:center;
+  padding:20px;
+  opacity:0;
+  transition:opacity 0.25s ease;
+}
+
+.modal.show{
+  display:flex;
+  opacity:1;
+}
+
+.modal-content{
+  background:var(--card);
+  max-width:650px;
+  width:100%;
+  border-radius:4px;
+  overflow:hidden;
+  position:relative;
+  box-shadow:0 12px 30px rgba(0,0,0,0.3);
+  transform:scale(0.95);
+  transition:transform 0.25s ease;
+}
+
+.modal.show .modal-content{
+  transform:scale(1);
+}
+
+.modal-close{
+  position:absolute;
+  top:10px;
+  right:12px;
+  background:rgba(0,0,0,0.5);
+  color:#fff;
+  border:none;
+  width:36px;
+  height:36px;
+  border-radius:50%;
+  font-size:18px;
+  cursor:pointer;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  z-index:10;
+  transition:background 0.15s ease;
+}
+
+.modal-close:hover{
+  background:var(--gold);
+}
+
+.modal-img{
+  width:100%;
+  max-height:60vh;
+  object-fit:contain;
+  background:#000;
+  display:block;
+}
+
+.modal-info{
+  padding:20px;
+}
+
+.modal-info h3{
+  font-family:'Noto Serif Thai', serif;
+  margin:0 0 6px;
+  font-size:18px;
+  color:var(--ink);
+}
+
+.modal-info .modal-year{
+  font-size:13px;
+  color:var(--teal);
+  font-weight:600;
+  margin-bottom:8px;
+}
+
+.modal-info p{
+  font-size:14px;
+  color:var(--ink-soft);
+  margin:0;
+  line-height:1.6;
+}
+
+.contact-item{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  padding:14px 18px;
+  border:1px solid var(--line);
+  margin-bottom:10px;
+  font-size:14.5px;
+}
+
+.contact-item .label{
+  font-size:11.5px;
+  letter-spacing:0.08em;
+  text-transform:uppercase;
+  color:var(--ink-soft);
+  min-width:64px;
+}
+
+.contact-item a{ color:var(--teal); text-decoration:none; }
+.contact-item a:hover{ text-decoration:underline; }
+
+.back-wrap{
+  text-align:center;
+  padding:0 24px 56px;
+}
+
+.cta{
+  display:inline-block;
+  background:var(--ink);
+  color:#fff;
+  text-decoration:none;
+  font-weight:500;
+  font-size:14px;
+  letter-spacing:0.05em;
+  padding:14px 34px;
+  transition: background 0.15s ease;
+}
+.cta:hover{ background:var(--teal); }
+
+/* home page section links */
+.home-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill, minmax(220px, 1fr));
+  gap:16px;
+  margin-top:28px;
+}
+
+.home-link{
+  display:block;
+  text-decoration:none;
+  color:var(--ink);
+  background:var(--card);
+  border:1px solid var(--line);
+  border-left:4px solid var(--gold);
+  padding:18px 20px;
+  transition: box-shadow 0.15s ease, transform 0.15s ease, border-color 0.15s ease;
+}
+
+.home-link:hover{
+  box-shadow:0 8px 20px rgba(28,42,56,0.1);
+  transform:translateY(-3px);
+  border-left-color:var(--teal);
+}
+
+.home-link .home-title{
+  font-family:'Noto Serif Thai', serif;
+  font-weight:600;
+  font-size:15.5px;
+  margin:0 0 4px;
+}
+
+.home-link .home-desc{
+  font-size:13px;
+  color:var(--ink-soft);
+  margin:0;
+}
+
+footer{
+  text-align:center;
+  padding:22px;
+  background:var(--card);
+  border-top:1px solid var(--line);
+  font-size:11.5px;
+  color:var(--ink-soft);
+}
+
+/* ---------- staggered reveal ---------- */
+@keyframes rise-in{
+  0%{ opacity:0; transform:translateY(14px); filter:blur(1.5px); }
+  100%{ opacity:1; transform:translateY(0); filter:blur(0); }
+}
+
+.reveal-item{
+  opacity:0;
+  animation:rise-in 0.55s cubic-bezier(.16,.84,.44,1) both;
+}
+
+/* ---------- page-exit curtain ---------- */
+.curtain{
+  position:fixed;
+  inset:0;
+  background:var(--ink);
+  transform:scaleY(0);
+  transform-origin:bottom;
+  z-index:150;
+  pointer-events:none;
+}
+.curtain.active{
+  transition:transform 0.6s cubic-bezier(.76,0,.24,1);
+  transform:scaleY(1);
+}
+
+@media (max-width:600px){
+  header img.avatar{ width:150px; height:150px; }
+  .school-badge{ width:44px; height:44px; }
+  header h1{ font-size:24px; }
+  nav.tabs a{ font-size:13px; padding:13px 12px; }
+}
+
+</style>
+</head>
+<body>
+
+<div class="curtain" id="curtain"></div>
+
+<header>
+  <div class="photo-wrap">
+    <img class="avatar" src="frank2.jpg" alt="รูปเจ้าของผลงาน">
+    <img class="school-badge" src="school-logo.png" alt="ตราโรงเรียนบ้านบึง อุตสาหกรรมนุเคราะห์">
+  </div>
+  <p class="eyebrow">แฟ้มสะสมผลงาน</p>
+  <h1>พีระพัฒน์ มะใบ</h1>
+  <p>โรงเรียนบ้านบึง "อุตสาหกรรมนุเคราะห์"</p>
+</header>
+
+<nav class="tabs">
+  <a href="portfolio.html" class="tab-link" data-transition>คำนำ</a>
+  <a href="profile.html" class="tab-link" data-transition>ประวัติส่วนตัว</a>
+  <a href="education.html" class="tab-link active" data-transition>ประวัติการศึกษา</a>
+  <a href="university.html" class="tab-link" data-transition>มหาวิทยาลัยที่สนใจ</a>
+  <a href="activities.html" class="tab-link" data-transition>กิจกรรม</a>
+  <a href="skills.html" class="tab-link" data-transition>ความสามารถพิเศษ</a>
+  <a href="certificates.html" class="tab-link" data-transition>เกียรติบัตร</a>
+  <a href="contact.html" class="tab-link" data-transition>ติดต่อ</a>
+</nav>
+
+<main>
+<section class="panel" id="education">
+  <h2>ประวัติการศึกษา</h2>
+  <hr class="rule">
+  <div class="edu-block">
+    <img class="edu-logo" src="primary-logo.png" alt="ตราโรงเรียนอนุบาลบ้านบึง">
+    <div class="edu-text">
+      <h3>ระดับประถมศึกษา</h3>
+      <p>โรงเรียนอนุบาลบ้านบึง</p>
+    </div>
+  </div>
+  <div class="edu-block">
+    <img class="edu-logo" src="school-logo.png" alt="ตราโรงเรียนบ้านบึง อุตสาหกรรมนุเคราะห์">
+    <div class="edu-text">
+      <h3>ระดับมัธยมศึกษาตอนต้น</h3>
+      <p>โรงเรียนบ้านบึง "อุตสาหกรรมนุเคราะห์"</p>
+    </div>
+  </div>
+  <div class="edu-block">
+    <img class="edu-logo" src="school-logo.png" alt="ตราโรงเรียนบ้านบึง อุตสาหกรรมนุเคราะห์">
+    <div class="edu-text">
+      <h3>ระดับมัธยมศึกษาตอนปลาย</h3>
+      <p>โรงเรียนบ้านบึง "อุตสาหกรรมนุเคราะห์"</p>
+    </div>
+  </div>
+</section>
+</main>
+
+<div class="back-wrap">
+  <a href="index.html" class="cta" data-transition>กลับหน้าแรก</a>
+</div>
+
+<footer>
+  © 2026 Portfolio — Peerapat Mabai
+</footer>
+
+<script>
+/* ---- staggered reveal on page load ---- */
+function revealPanel(){
+  var panel = document.querySelector('.panel');
+  if (!panel) return;
+  var items = panel.querySelectorAll(
+    'h2, hr.rule, p, .edu-block, ul.list li, .uni-item, .media-card, .empty-box, .contact-item, .home-link'
+  );
+  items.forEach(function(el, i){
+    el.style.animationDelay = (i * 70) + 'ms';
+    el.classList.add('reveal-item');
+  });
+}
+document.addEventListener('DOMContentLoaded', revealPanel);
+
+/* ---- curtain transition for every internal link ---- */
+document.addEventListener('DOMContentLoaded', function(){
+  var curtain = document.getElementById('curtain');
+  if (!curtain) return;
+  var links = document.querySelectorAll('a[data-transition]');
+  links.forEach(function(link){
+    link.addEventListener('click', function(e){
+      var href = link.getAttribute('href');
+      if (!href) return;
+      e.preventDefault();
+      curtain.classList.add('active');
+      setTimeout(function(){
+        window.location.href = href;
+      }, 600);
+    });
+  });
+});
+
+/* ---- generic card grid renderer ---- */
+function renderCards(dataList, containerId){
+  var container = document.getElementById(containerId);
+  if (!container) return;
+
+  if (!dataList || dataList.length === 0) {
+    container.innerHTML = '<div class="empty-box">ยังไม่มีข้อมูลรายการ</div>';
+    return;
+  }
+
+  container.innerHTML = dataList.map(function(item, index){
+    return (
+      '<div class="media-card" onclick="openModal(' + index + ')">' +
+        '<img class="thumb" src="' + item.img + '" alt="' + item.title + '" onerror="this.src=\'https://via.placeholder.com/300x225?text=No+Image\'">' +
+        '<div class="caption">' +
+          '<p class="title">' + item.title + '</p>' +
+          (item.year ? '<p class="year">ปี พ.ศ. ' + item.year + '</p>' : '') +
+          (item.desc ? '<p class="desc">' + item.desc + '</p>' : '') +
+        '</div>' +
+      '</div>'
+    );
+  }).join('');
+}
+
+/* ---- modal lightbox (expects a global `cardData` array on the page) ---- */
+function openModal(index){
+  if (typeof cardData === 'undefined') return;
+  var item = cardData[index];
+  if (!item) return;
+
+  var modal = document.getElementById('imageModal');
+  var modalImg = document.getElementById('modalImg');
+  var modalTitle = document.getElementById('modalTitle');
+  var modalYear = document.getElementById('modalYear');
+  var modalDesc = document.getElementById('modalDesc');
+
+  modalImg.src = item.img;
+  modalImg.onerror = function(){ modalImg.src = 'https://via.placeholder.com/600x400?text=No+Image'; };
+  modalTitle.textContent = item.title || '';
+  modalYear.textContent = item.year ? ('ปีที่ได้รับ: พ.ศ. ' + item.year) : '';
+  modalDesc.textContent = item.desc || 'ไม่มีคำอธิบายเพิ่มเติม';
+
+  modal.classList.add('show');
+}
+
+function closeModal(){
+  var modal = document.getElementById('imageModal');
+  if (modal) modal.classList.remove('show');
+}
+
+document.addEventListener('DOMContentLoaded', function(){
+  var modal = document.getElementById('imageModal');
+  if (!modal) return;
+  var modalClose = document.getElementById('modalClose');
+  if (modalClose) modalClose.addEventListener('click', closeModal);
+  modal.addEventListener('click', function(e){
+    if (e.target === modal) closeModal();
+  });
+  document.addEventListener('keydown', function(e){
+    if (e.key === 'Escape' && modal.classList.contains('show')) closeModal();
+  });
+});
+
+</script>
+
+</body>
+</html>
